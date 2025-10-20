@@ -61,7 +61,17 @@
 
     .banner{margin:28px 0;padding:18px;border-radius:18px;background:linear-gradient(90deg,rgba(34,211,238,.1),rgba(139,92,246,.08));border:1px solid #1e2a45}
 
-    .examples{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .examples{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .pair{background:#ffffff;border:1px solid #eceff6;border-radius:16px;padding:14px;box-shadow:0 6px 16px rgba(17,17,23,.05)}
+    .pair h4{margin:0 0 10px;font-size:14px;color:#333842}
+    .pair .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .shot{position:relative;border:1px solid #eceff6;border-radius:12px;overflow:hidden;background:#fff}
+    .shot img,.shot video{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:1/1}
+    .label{position:absolute;left:8px;top:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.9);color:#111217;font-size:12px;font-weight:800;border:1px solid rgba(0,0,0,.06)}
+    .pair .actions{display:flex;gap:10px;align-items:center;margin-top:10px}
+    .tag{font-size:12px;padding:6px 10px;border:1px solid #eceff6;border-radius:999px;background:#fff;color:#5b6472}
+    @media (max-width:1024px){.pair .grid2{grid-template-columns:1fr}}
+    
     .ex{position:relative;background:#ffffff;border:1px solid #eceff6;border-radius:16px;aspect-ratio:1/1;display:block;overflow:hidden}
     .ex img{width:100%;height:100%;object-fit:cover;display:block}
     .ex span{position:absolute;left:10px;bottom:10px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.8);color:#111217;font-size:12px;font-weight:800;border:1px solid rgba(0,0,0,.06)}
@@ -149,7 +159,7 @@
         </div>
       </div>
       <div class="mock">
-        <img src="assets/preview-pack.png" alt="Превью набора стикеров" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 800 600\'><rect width=\'100%\' height=\'100%\' fill=\'%2310182a\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'22\' fill=\'%2394a3b8\'>Замените на assets/preview-pack.webp</text></svg>'" />
+        <img src="assets/preview-pack.webp" alt="Превью набора стикеров" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 800 600\'><rect width=\'100%\' height=\'100%\' fill=\'%2310182a\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'22\' fill=\'%2394a3b8\'>Замените на assets/preview-pack.webp</text></svg>'" />
       </div>
     </section>
 
@@ -182,41 +192,8 @@
 
     <section id="examples" style="margin-top:34px">
       <h2 style="margin:0 0 12px">Примеры</h2>
-      <p style="color:var(--muted);margin:0 0 12px">Люди и питомцы • Мультяшный стиль • Разные эмоции.</p>
-      <div class="examples">
-        <a class="ex" href="#" target="_blank" rel="noopener">
-          <img src="assets/example-1.webp" alt="Пример стикерпака 1"/>
-          <span>Pack #1</span>
-        </a>
-        <a class="ex" href="#" target="_blank" rel="noopener">
-          <img src="assets/example-2.webp" alt="Пример стикерпака 2"/>
-          <span>Pack #2</span>
-        </a>
-        <a class="ex" href="#" target="_blank" rel="noopener">
-          <img src="assets/example-3.webp" alt="Пример стикерпака 3"/>
-          <span>Pack #3</span>
-        </a>
-        <a class="ex" href="#" target="_blank" rel="noopener">
-          <img src="assets/example-4.webp" alt="Пример стикерпака 4"/>
-          <span>Pack #4</span>
-        </a>
-        <a class="ex" href="#" target="_blank" rel="noopener">
-          <img src="assets/example-5.webp" alt="Пример стикерпака 5"/>
-          <span>Pack #5</span>
-        </a>
-        <a class="ex" href="#" target="_blank" rel="noopener">
-          <img src="assets/example-6.webp" alt="Пример стикерпака 6"/>
-          <span>Pack #6</span>
-        </a>
-        <a class="ex" href="#" target="_blank" rel="noopener">
-          <img src="assets/example-7.webp" alt="Пример стикерпака 7"/>
-          <span>Pack #7</span>
-        </a>
-        <a class="ex" href="#" target="_blank" rel="noopener">
-          <img src="assets/example-8.webp" alt="Пример стикерпака 8"/>
-          <span>Pack #8</span>
-        </a>
-      </div>
+      <p style="color:var(--muted);margin:0 0 12px">Показываем «до/после»: <strong>исходное фото</strong> и <strong>скрин пака в Telegram</strong>. Все в едином мультяшном стиле, с сохранением идентичности.</p>
+      <div class="examples" id="examplesGrid"></div>
     </section>
 
     <section id="pricing" style="margin-top:34px">
@@ -313,6 +290,39 @@
         e.target.textContent='Ссылка скопирована ✓'; setTimeout(()=>e.target.textContent='Скопировать ссылку на бота',1800);
       }catch(err){location.href='https://t.me/ai_sticksbot'}
     });
+  </script>
+  <script>
+    // Примеры: фото + скрин пака в TG. Меняй пути/ссылки и добавляй объекты.
+    const examples = [
+      {
+        title: 'Кирилл — набор эмоций',
+        photo: 'assets/photo-1.png',      // исходное фото (PNG/WebP)
+        pack:  'assets/pack-1.webp',      // скрин пака из Telegram
+        href:  'https://t.me/addstickers/your_pack_1', // или мгновенная ссылка из бота
+        tags:  ['человек','мультяшный','16 статик']
+      },
+      {
+        title: 'Мурзик — мультяшный',
+        photo: 'assets/photo-2.png',
+        pack:  'assets/pack-2.webp',
+        href:  'https://t.me/addstickers/your_pack_2',
+        tags:  ['питомец','мультяшный','16 аним']
+      }
+    ];
+
+    const grid = document.getElementById('examplesGrid');
+    grid.innerHTML = examples.map(x=>`
+      <div class="pair">
+        <h4>${x.title}</h4>
+        <div class="grid2">
+          <div class="shot"><img src="${x.photo}" alt="Фото: ${x.title}" loading="lazy"/><span class="label">Фото</span></div>
+          <a class="shot" href="${x.href}" target="_blank" rel="noopener" aria-label="Открыть пак в Telegram"><img src="${x.pack}" alt="Стикерпак: ${x.title}" loading="lazy"/><span class="label">Пак в TG</span></a>
+        </div>
+        <div class="actions">
+          ${(x.tags||[]).map(t=>`<span class='tag'>${t}</span>`).join('')}
+        </div>
+      </div>
+    `).join('');
   </script>
 </body>
 </html>
