@@ -13,12 +13,17 @@
   <meta name="theme-color" content="#ff3d81" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#fff8fb; --panel:#ffffff; --soft:#f6f7fb; --muted:#5b6472; --text:#111217;
+      /* Fonts & brand */
+      --font:'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      --font-head:'Sora', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       --brand:#ff6a3d; /* яркий оранжевый */
       --brand-2:#ff3d81; /* неоновый розовый */
+      /* Tones */
+      --bg:#fff8fb; --panel:#ffffff; --soft:#f6f7fb;
+      --text:#2a2a2a; --muted:#6b7280; --heading:#ff6a3d;
       --ok:#10b981; --warn:#f59e0b;
       --radius:18px; --shadow:0 14px 36px rgba(17,17,23,.08);
     }
@@ -27,13 +32,13 @@
       radial-gradient(1200px 700px at 85% -10%,rgba(255,61,129,.15),transparent 60%),
       radial-gradient(900px 600px at -10% 10%,rgba(255,106,61,.12),transparent 55%),
       linear-gradient(180deg,#fffefe,#fff8fb);
-      color:var(--text);font-family:Manrope,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;}
+      color:var(--text);font-family:var(--font), "Segoe UI", Roboto, Arial, sans-serif;}
     a{color:inherit;text-decoration:none}
 .wrap{max-width:1120px;margin:0 auto;padding:32px}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
     .nav .brand{display:flex;align-items:center;gap:12px;font-weight:700}
-    .nav .brand .logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;box-shadow:0 10px 24px rgba(255,61,129,.25)}
-    .nav .brand .logo span{font-weight:800}
+    .nav .brand .logo{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;box-shadow:0 10px 24px rgba(255,61,129,.25);border:1px solid #eceff6;overflow:hidden;background:#fff}
+    .nav .brand .logo img{width:100%;height:100%;object-fit:cover;display:block}
     .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:14px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#0b0f1a;font-weight:800;letter-spacing:.2px;box-shadow:0 8px 22px rgba(255,61,129,.25),0 2px 6px rgba(0,0,0,.5);transition:transform .12s ease,filter .12s ease}
     .btn:hover{transform:translateY(-1px) scale(1.01);filter:saturate(1.12)}
     .btn.ghost{background:#ffffff;color:#111217;border:1px solid #e6e8ef;box-shadow:0 2px 8px rgba(17,17,23,.06)}
@@ -41,7 +46,7 @@
     
 
     .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;margin-top:32px}
-    .hero h1{font-size:48px;line-height:1.05;margin:0 0 12px}
+    .hero h1{font-size:48px;line-height:1.05;margin:0 0 12px;font-family:var(--font-head);font-weight:800;}
     .hero p{color:var(--muted);font-size:18px;margin:0 0 22px}
     .badges{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
     .badge{font-size:13px;padding:8px 12px;border-radius:999px;background:rgba(255,61,129,.08);border:1px solid rgba(255,106,61,.35);color:#a01b5a;backdrop-filter:saturate(1.2)}
@@ -78,7 +83,7 @@
     
 
     .price{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .plan{background:var(--panel);border:1px solid #1e293b;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px}
+    .plan{background:var(--panel);border:1px solid #eceff6;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px}
     .plan h4{margin:0}
     .plan .amount{font-size:34px;font-weight:800}
     .plan ul{margin:0;padding-left:18px;color:var(--muted)}
@@ -104,6 +109,11 @@
       .examples{grid-template-columns:repeat(2,1fr)}
       .hero h1{font-size:36px}
     }
+  .gtext{background:linear-gradient(135deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero-title{font-family:var(--font-head);font-weight:800;font-size:48px;line-height:1.05;margin:0 0 12px}
+    .hero-title .subtitle{color:var(--muted);font-weight:600}
+    .fade-up{opacity:0;transform:translateY(6px);animation:fadeUp .5s ease forwards}
+    @keyframes fadeUp{to{opacity:1;transform:none}}
   </style>
   <script type="application/ld+json">
   {
@@ -121,7 +131,7 @@
 <body>
   <header class="wrap nav">
     <div class="brand">
-      <div class="logo" aria-hidden="true">🧩</div>
+      <div class="logo"><img src="assets/bot-avatar.png" alt="Аватар ТыСтикер AI" /></div>
       <div>
         <div>ТыСтикер <span style="opacity:.6">AI</span></div>
         <small style="color:var(--muted)">Стикеры по фото в Telegram</small>
@@ -144,8 +154,8 @@
           <span class="badge">🎨 16× статичных</span>
           <span class="badge">🎞️ 16× анимированных</span>
         </div>
-        <h1>Персональный стикер‑пак<br>по вашему фото или фото питомца</h1>
-        <p>Загрузите фото человека или питомца — ИИ создаст <strong>уникальный авторский стикерпак</strong> в мультяшном стиле, <strong>сохранив вашу идентичность</strong> и характер эмоций.</p>
+        <h1 class="hero-title fade-up"><span class="gtext">ТыСтикер AI</span><br><span class="subtitle">Телеграм-бот, который генерирует уникальные стикер-паки по фото</span></h1>
+        <p>Загрузите фото человека или питомца — ИИ сохранит вашу идентичность и сгенерирует <strong>набор эмоций</strong> (4 или 16 на выбор) в едином мультяшном стиле. Сразу выдадим <strong>ссылку на пак в Telegram</strong> — используйте в чате моментально.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
           <a class="btn" href="https://t.me/ai_sticksbot" target="_blank" rel="noopener">🚀 Запустить в Telegram</a>
           <a class="btn ghost" href="#how">Как это работает</a>
