@@ -36,8 +36,10 @@
     a{color:inherit;text-decoration:none}
 .wrap{max-width:1120px;margin:0 auto;padding:32px}
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
-    .nav .brand{display:flex;align-items:center;gap:12px;font-weight:700}
-    .nav .brand .logo{width:72px;height:72px;border-radius:18px;display:grid;place-items:center;box-shadow:0 10px 24px rgba(255,61,129,.22),0 0 0 3px rgba(255,61,129,.10);border:1px solid #eceff6;overflow:hidden;background:#fff;transition:transform .12s ease, box-shadow .2s ease}
+    .nav .brand{display:flex;align-items:center;gap:16px;font-weight:700}
+    .nav .brand .logo{width:108px;height:108px;border-radius:24px;display:grid;place-items:center;box-shadow:0 10px 24px rgba(255,61,129,.22),0 0 0 3px rgba(255,61,129,.10);border:1px solid #eceff6;overflow:hidden;background:#fff;transition:transform .12s ease, box-shadow .2s ease}
+    .nav .brand .logo:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(255,61,129,.26),0 0 0 4px rgba(255,61,129,.14)}
+    .nav .brand .logo img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
     .nav .brand .logo:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(255,61,129,.26),0 0 0 4px rgba(255,61,129,.14)}
     .nav .brand .logo img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
     .nav .brand .logo img{width:100%;height:100%;object-fit:cover;display:block}
@@ -110,12 +112,12 @@
       .steps{grid-template-columns:1fr}
       .examples{grid-template-columns:repeat(2,1fr)}
       .hero h1{font-size:36px}
-      .nav .brand .logo{width:56px;height:56px;border-radius:14px}
+      .nav .brand .logo{width:72px;height:72px;border-radius:18px}
     }
       .steps{grid-template-columns:1fr}
       .examples{grid-template-columns:repeat(2,1fr)}
       .hero h1{font-size:36px}
-      .nav .brand .logo{width:44px;height:44px;border-radius:12px}
+      .nav .brand .logo{width:72px;height:72px;border-radius:18px}
     }
       .steps{grid-template-columns:1fr}
       .examples{grid-template-columns:repeat(2,1fr)}
@@ -181,7 +183,7 @@
         </div>
       </div>
       <div class="mock">
-        <img src="assets/preview-pack.png" alt="Превью набора стикеров" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 800 600\'><rect width=\'100%\' height=\'100%\' fill=\'%2310182a\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'22\' fill=\'%2394a3b8\'>Замените на assets/preview-pack.webp</text></svg>'" />
+        <img src="assets/preview-pack.png" alt="Превью набора стикеров" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 800 600\'><rect width=\'100%\' height=\'100%\' fill=\'%2310182a\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-size=\'22\' fill=\'%2394a3b8\'>Замените на assets/preview-pack.png</text></svg>'" />
       </div>
     </section>
 
@@ -314,37 +316,39 @@
     });
   </script>
   <script>
-    // Примеры: фото + скрин пака в TG. Меняй пути/ссылки и добавляй объекты.
+    // Примеры: фото + скрин/видео пака в TG. Меняйте пути/ссылки и добавляйте объекты.
     const examples = [
       {
-        title: 'Надя — набор эмоций',
-        photo: 'assets/photo-1.png',      // исходное фото (PNG/WebP)
-        pack:  'assets/pack-1.webm',      // скрин пака из Telegram
-        href:  'https://t.me/addstickers/stickerpackai_192771243_f3e5_by_ai_sticksbot', // или мгновенная ссылка из бота
-        tags:  ['человек','мультяшный','16 аним']
+        title: 'Кирилл — набор эмоций',
+        photo: 'assets/photo-1.png',
+        video: 'assets/pack-1.webm', // ✅ теперь webm
+        href:  'https://t.me/addstickers/your_pack_1',
+        tags:  ['человек','мультяшный','16 статик']
       },
       {
-        title: 'Котеночек',
+        title: 'Мурзик — мультяшный',
         photo: 'assets/photo-2.png',
-        pack:  'assets/pack-2.webm',
-        href:  'https://t.me/addstickers/stickerpackai_192771243_3b12_by_ai_sticksbot',
+        pack:  'assets/pack-2.png',   // статичное превью
+        href:  'https://t.me/addstickers/your_pack_2',
         tags:  ['питомец','мультяшный','16 аним']
       }
     ];
 
     const grid = document.getElementById('examplesGrid');
-    grid.innerHTML = examples.map(x=>`
+    grid.innerHTML = examples.map(x=>{
+      const media = x.video
+        ? `<video autoplay muted loop playsinline><source src="${x.video}" type="video/webm"></video>`
+        : `<img src="${x.pack}" alt="Стикерпак: ${x.title}" loading="lazy"/>`;
+      return `
       <div class="pair">
         <h4>${x.title}</h4>
         <div class="grid2">
           <div class="shot"><img src="${x.photo}" alt="Фото: ${x.title}" loading="lazy"/><span class="label">Фото</span></div>
-          <a class="shot" href="${x.href}" target="_blank" rel="noopener" aria-label="Открыть пак в Telegram"><img src="${x.pack}" alt="Стикерпак: ${x.title}" loading="lazy"/><span class="label">Пак в TG</span></a>
+          <a class="shot" href="${x.href}" target="_blank" rel="noopener" aria-label="Открыть пак в Telegram">${media}<span class="label">Пак в TG</span></a>
         </div>
-        <div class="actions">
-          ${(x.tags||[]).map(t=>`<span class='tag'>${t}</span>`).join('')}
-        </div>
-      </div>
-    `).join('');
+        <div class="actions">${(x.tags||[]).map(t=>`<span class='tag'>${t}</span>`).join('')}</div>
+      </div>`;
+    }).join('');
   </script>
 </body>
 </html>
