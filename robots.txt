@@ -1,0 +1,9 @@
+# robots.txt — aistickers.ru
+User-agent: *
+Allow: /
+
+# Медиа и статические файлы — пусть индексируются
+Allow: /assets/
+
+# Карта сайта
+Sitemap: https://aistickers.ru/sitemap.xml
